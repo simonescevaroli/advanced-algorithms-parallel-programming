@@ -1,32 +1,13 @@
-#include <stdio.h>
-#include <iostream>
-#include <string.h>
-#include <vector>
+#include "alignment.hpp"
 #include <algorithm>
 using namespace std;
 
-
-void print_memo(vector<vector<int>> memo, string X, string Y);
-void align_min_cost(string X, string Y, int gap, int sub);
-
-int main()
-{
-    // Ask for the 2 strings
-    string X, Y;
-    cout << "X: ";
-    cin >> X;
-    cout << "Y: ";
-    cin >> Y;
-    int gap = 2;
-    int sub = 5;
-
-    align_min_cost(X, Y, gap, sub);
-
-  return 0;
-
-}
-
-void align_min_cost(string X, string Y, int gap, int sub){
+/*
+Return a <<string,string>, int> pair
+The first element of the pair contains the two aligned strings, the second contains the minimum cost 
+found for aligning the two
+*/
+pair<pair<string, string>, int> align_min_cost(string X, string Y, int gap, int sub){
     // The X string is displayed in the columns, while the Y string is displayed in the rows
     int m = X.length();
     int n = Y.length();
@@ -104,11 +85,60 @@ void align_min_cost(string X, string Y, int gap, int sub){
         j--;
     }
 
-    cout << "Aligned string X: " << aligned_X << endl;
-    cout << endl << "Aligned string Y: " << aligned_Y << endl;
-    cout << endl << "Cost: " << memo[n][m] << endl;
+    return make_pair(make_pair(aligned_Y, aligned_X), memo[n][m]);
 }
 
+/*
+This function doesn't consider the (optimal) solution where the 2 strings are built using two disjoint sets,
+due to the constraint "both the strings must contain all the 4 characters"
+It returns a pair of strings with max cost of alignment considering the above constraint, maximizing the distance 
+having only 1 match character
+Returns a <string, string>, the two strings with maximum alignment cost
+*/
+pair<string, string> build_max_cost(int n, int m, int gap, int sub){
+    vector<char> bases = {'A', 'G', 'C', 'T'};
+    string X, Y;
+    int i = 0;
+    int j = 0;
+    for(i = 0; i < min(n, 4); i++){
+        Y = Y + bases[i]; 
+    }
+    for(j = 0; j < min(m, 4); j++){
+        X = X + bases[bases.size()-j-1];
+    }
+    while(i<n){
+        Y = bases[0] + Y;
+        i++;
+    }
+    while(j<m){
+        X = bases[bases.size()-1] + X;
+        j++;
+    }
+
+    return make_pair(Y, X);
+}
+
+/*
+This function prints one of the optimal solutions where the two strings are composed using two disjoint sets
+(A, C) for X and (T, G) for Y
+In this way, the distance is maximized, since the two strings don't have nothing in common
+*/
+pair<string, string> build_max_disjoint(int n, int m, int gap, int sub){
+    string X, Y;
+    vector<char> basesY = {'T', 'G'};
+    vector<char> basesX = {'A', 'C'};
+    for(int i = 0; i < n; i ++){
+        Y = Y + basesY[i%basesY.size()];
+    }
+    for(int j = 0; j < m; j ++){
+        X = X + basesX[j%basesX.size()];
+    }
+    return make_pair(Y, X);
+}
+
+/*
+Print the matrix used for computing the minimum cost, with also the strings displayed in the columns/rows
+*/
 void print_memo(vector<vector<int>> memo, string X, string Y){
     cout << "    ";
     for(auto letter : X){
