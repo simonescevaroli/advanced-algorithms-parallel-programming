@@ -3,3 +3,6 @@
 !*/
 *.pdf
 .vscode
+*.mkv
+build/
+*.csv
