@@ -1,6 +1,6 @@
-Project for _Advanced Algortihms and Parallel Programming_ (_Politecnico di Milano_, 2023-2024)
+Assignments for _Advanced Algortihms and Parallel Programming_ (_Politecnico di Milano_, 2023-2024)
 
-# Advanced Algorithms and Parallel Programming Assignments
+# Advanced Algorithms and Parallel Programming
 
 In the `assignment1` folder there is the code that solves the first assignment regarding "advanced algorithms".
 
