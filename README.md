@@ -1,14 +1,7 @@
-# Advanced Algorithms Assignments
+Project for _Advanced Algortihms and Parallel Programming_ (_Politecnico di Milano_, 2023-2024)
 
-If you want to try the code use the following commands:
+# Advanced Algorithms and Parallel Programming Assignments
 
+In the `assignment1` folder there is the code that solves the first assignment regarding "advanced algorithms".
 
-`g++ main.cpp alignment.cpp -o alignment`
-
-`./alignment`
-
-or
-
-`g++ main_bonus.cpp alignment.cpp -o alignment_bonus`
-
-`./alignment_bonus`
+In the `assignment2` folder, instead, there is the code that solves the second assignment regarding "parallel programming".
