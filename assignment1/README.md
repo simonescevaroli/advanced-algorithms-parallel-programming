@@ -1,4 +1,4 @@
-# Advanced Algorithms Assignments
+# Advanced Algorithms Assignment
 
 ## Base case
 The code in `main.cpp` solves the famous "alignment problem" in biology: given 2 strings composed by characters "A", "T", "G", "C" (Adenine, Thymine, Guanine, Cytosine), 
